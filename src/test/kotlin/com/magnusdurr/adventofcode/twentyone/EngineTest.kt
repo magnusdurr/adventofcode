@@ -15,5 +15,9 @@ internal class EngineTest {
         assertThat(diagnostics.gamma).isEqualTo(22)
         assertThat(diagnostics.epsilon).isEqualTo(9)
         assertThat(diagnostics.powerConsumption()).isEqualTo(198)
+
+        assertThat(diagnostics.oxygenRating).isEqualTo(23)
+        assertThat(diagnostics.co2ScrubberRating).isEqualTo(10)
+        assertThat(diagnostics.lifeSupportRating()).isEqualTo(230)
     }
 }

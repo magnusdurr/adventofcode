@@ -25,6 +25,7 @@ class MissionControl {
             val dayThreeDiagnostics = File("src/main/resources/day-three-diagnostics.txt").readLines()
             val diagnostics = submarine.engineDiagnostics(dayThreeDiagnostics)
             println("day three power consumption - ${diagnostics.powerConsumption()}")
+            println("day three life support rating - ${diagnostics.lifeSupportRating()}")
         }
     }
 
