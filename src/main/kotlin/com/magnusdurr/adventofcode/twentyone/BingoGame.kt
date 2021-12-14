@@ -36,6 +36,24 @@ class BingoGame(val numbers: List<Int>, val boards: List<Board>) {
         throw IllegalStateException("No winner!")
     }
 
+    fun findLoser(): Pair<Board, Int> {
+        val boardsInPlay = boards.toMutableList()
+
+        numbers.forEach { number ->
+            boardsInPlay.forEach {
+                it.check(number)
+            }
+
+            if (boardsInPlay.size > 1) {
+                boardsInPlay.removeIf { it.hasBingo() }
+            } else if (boardsInPlay.first().hasBingo()) {
+                return boardsInPlay.first() to number
+            }
+        }
+
+        throw IllegalStateException("No winner!")
+    }
+
     class Board(val grid: List<BoardSquare>) {
         fun check(number: Int) {
             grid.filter { it.value == number }

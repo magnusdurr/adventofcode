@@ -28,8 +28,11 @@ class MissionControl {
             println("day three life support rating - ${diagnostics.lifeSupportRating()}")
 
             val dayFourBingo = File("src/main/resources/day-four-bingo.txt").readLines()
-            val (board, number) = BingoGame.loadFromFile(dayFourBingo).findWinner()
+            val bingoGame = BingoGame.loadFromFile(dayFourBingo)
+            val (board, number) = bingoGame.findWinner()
             println("day four bingo - winner rating ${board.sumOfUnchecked() * number}")
+            val (losingBoard, losingBoardNumber) = bingoGame.findLoser()
+            println("day four bingo - loser rating ${losingBoard.sumOfUnchecked() * losingBoardNumber}")
         }
     }
 

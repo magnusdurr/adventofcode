@@ -34,4 +34,12 @@ internal class BingoGameTest {
         assertThat(board.sumOfUnchecked()).isEqualTo(188)
         assertThat(number).isEqualTo(24)
     }
+
+    @Test
+    fun `day four - avoid bingo`() {
+        val bingoGame = BingoGame.loadFromFile(testData)
+        val (board, number) = bingoGame.findLoser()
+        assertThat(board.sumOfUnchecked()).isEqualTo(148)
+        assertThat(number).isEqualTo(13)
+    }
 }
