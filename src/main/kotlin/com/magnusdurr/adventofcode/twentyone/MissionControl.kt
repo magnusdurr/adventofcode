@@ -9,13 +9,13 @@ class MissionControl {
         fun main(args: Array<String>) {
             val missionControl = MissionControl()
 
-            println("day one sonar scan - ${missionControl.dayOneSonarScan()}")
+            val dayOneScans = File("src/main/resources/day-one-sonar.txt").readLines().map { it.toInt() }
+            println("day one sonar scan - ${missionControl.dayOneSonarScan(dayOneScans)}")
+            println("day one sonar scan with sliding window - ${missionControl.dayOneSonarWithSlidingWindows(dayOneScans)}")
         }
     }
 
-    private val submarine = Submarine()
-
-    fun dayOneSonarScan(): Int = submarine.calculateIncreasingDepth(
-        File("src/main/resources/day-one-sonar.txt").readLines().map { it.toInt() }
-    )
+    fun dayOneSonarScan(scans: List<Int>): Int = DepthScan(scans).calculateIncreasingDepth()
+    fun dayOneSonarWithSlidingWindows(scans: List<Int>): Int =
+        DepthScan(scans).toSlidingWindows().calculateIncreasingDepth()
 }
