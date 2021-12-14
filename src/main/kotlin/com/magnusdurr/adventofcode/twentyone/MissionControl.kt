@@ -13,13 +13,18 @@ class MissionControl {
             println("day one sonar scan - ${missionControl.dayOneSonarScan(dayOneScans)}")
             println("day one sonar scan with sliding window - ${missionControl.dayOneSonarWithSlidingWindows(dayOneScans)}")
 
+            val submarine = Submarine()
+
             val dayTwoDrive = File("src/main/resources/day-two-drive.txt").readLines().map {
                 val tokens = it.split(" ")
                 tokens.first() to tokens.last().toInt()
             }
-            val submarine = Submarine()
             dayTwoDrive.forEach { submarine.drive(it.first, it.second) }
             println("day two submarine position - ${submarine.position()}")
+
+            val dayThreeDiagnostics = File("src/main/resources/day-three-diagnostics.txt").readLines()
+            val diagnostics = submarine.engineDiagnostics(dayThreeDiagnostics)
+            println("day three power consumption - ${diagnostics.powerConsumption()}")
         }
     }
 
