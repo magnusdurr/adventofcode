@@ -40,9 +40,7 @@ class BingoGame(val numbers: List<Int>, val boards: List<Board>) {
         val boardsInPlay = boards.toMutableList()
 
         numbers.forEach { number ->
-            boardsInPlay.forEach {
-                it.check(number)
-            }
+            boardsInPlay.forEach { it.check(number) }
 
             if (boardsInPlay.size > 1) {
                 boardsInPlay.removeIf { it.hasBingo() }
