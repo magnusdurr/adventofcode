@@ -1,14 +1,18 @@
 package com.magnusdurr.adventofcode.twentyone
 
 class Submarine {
-    var horizontal: Int = 0
-    var depth: Int = 0
+    var horizontal = 0
+    var depth = 0
+    private var aim = 0
 
     fun drive(direction: String, amount: Int) {
         when (direction) {
-            "forward" -> horizontal += amount
-            "down" -> depth += amount
-            "up" -> depth -= amount
+            "forward" -> {
+                horizontal += amount
+                depth += amount * aim
+            }
+            "down" -> aim += amount
+            "up" -> aim -= amount
             else -> throw IllegalArgumentException("Unknown direction: $direction")
         }
     }

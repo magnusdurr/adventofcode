@@ -16,7 +16,7 @@ internal class SubmarineTest {
         submarine.drive("forward", 2)
 
         assertThat(submarine.horizontal).isEqualTo(15)
-        assertThat(submarine.depth).isEqualTo(10)
-        assertThat(submarine.position()).isEqualTo(150)
+        assertThat(submarine.depth).isEqualTo(60)
+        assertThat(submarine.position()).isEqualTo(900)
     }
 }

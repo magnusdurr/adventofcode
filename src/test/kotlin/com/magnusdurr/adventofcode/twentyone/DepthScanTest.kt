@@ -1,4 +1,5 @@
-import com.magnusdurr.adventofcode.twentyone.DepthScan
+package com.magnusdurr.adventofcode.twentyone
+
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
