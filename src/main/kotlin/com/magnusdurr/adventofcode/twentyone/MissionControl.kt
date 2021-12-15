@@ -40,6 +40,12 @@ class MissionControl {
             println("day five vents - no. of hot spots in straight lines ${simpleHeatMap.size}")
             val heatMap = hydrothermalVentScanner.heatMap(2)
             println("day five vents - no. of hot spots ${heatMap.size}")
+
+            val daySixFish =
+                File("src/main/resources/day-six-fish.txt").readLines().first().split(",").map { it.toInt() }
+            val fishSchool = FishSchool(daySixFish)
+            fishSchool.simulateDays(80)
+            println("day six fish - no. of fish in school ${fishSchool.size()}")
         }
     }
 
