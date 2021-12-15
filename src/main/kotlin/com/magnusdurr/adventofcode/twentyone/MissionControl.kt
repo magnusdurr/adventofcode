@@ -45,7 +45,9 @@ class MissionControl {
                 File("src/main/resources/day-six-fish.txt").readLines().first().split(",").map { it.toInt() }
             val fishSchool = FishSchool(daySixFish)
             fishSchool.simulateDays(80)
-            println("day six fish - no. of fish in school ${fishSchool.size()}")
+            println("day six fish - no. of fish in school after 80 days ${fishSchool.size()}")
+            fishSchool.simulateDaysLowMem(256)
+            println("day six fish - no. of fish in school after 256 days ${fishSchool.lowMemSize()}")
         }
     }
 
