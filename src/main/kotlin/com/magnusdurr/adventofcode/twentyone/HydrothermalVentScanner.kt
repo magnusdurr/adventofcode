@@ -1,5 +1,7 @@
 package com.magnusdurr.adventofcode.twentyone
 
+import kotlin.math.abs
+
 class HydrothermalVentScanner(private val ventLines: List<VentLine>) {
 
     companion object {
@@ -16,11 +18,18 @@ class HydrothermalVentScanner(private val ventLines: List<VentLine>) {
         }
     }
 
+    fun simpleHeatMap(heat: Int): Set<Point> {
+        return createHeatMap(heat, ventLines.filter { it.isVertical() || it.isHorizontal() })
+    }
+
     fun heatMap(heat: Int): Set<Point> {
+        return createHeatMap(heat, ventLines)
+    }
+
+    private fun createHeatMap(heat: Int, lines: List<VentLine>): Set<Point> {
         val result = mutableMapOf<Point, Int>()
 
-        ventLines.filter { it.isVertical() || it.isHorizontal() }
-            .flatMap { it.points() }
+        lines.flatMap { it.points() }
             .forEach {
                 result.compute(it) { _, v ->
                     v?.plus(1) ?: 1
@@ -42,7 +51,13 @@ class HydrothermalVentScanner(private val ventLines: List<VentLine>) {
         } else if (isVertical()) {
             rangeFromZero(end.y - start.y).map { Point(start.x, start.y + it) }
         } else {
-            TODO("not handled")
+            assert(abs(end.x - start.x) == abs(end.y - start.y))
+            val horizontalRange = rangeFromZero(end.x - start.x)
+            val verticalIterator = rangeFromZero(end.y - start.y).iterator()
+
+            horizontalRange.map {
+                Point(start.x + it, start.y + verticalIterator.next())
+            }
         }
 
         private fun rangeFromZero(target: Int) = if (target < 0) {

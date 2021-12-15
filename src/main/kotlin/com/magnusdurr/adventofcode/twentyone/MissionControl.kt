@@ -35,7 +35,10 @@ class MissionControl {
             println("day four bingo - loser rating ${losingBoard.sumOfUnchecked() * losingBoardNumber}")
 
             val dayFiveVents = File("src/main/resources/day-five-vents.txt").readLines()
-            val heatMap = HydrothermalVentScanner.loadInput(dayFiveVents).heatMap(2)
+            val hydrothermalVentScanner = HydrothermalVentScanner.loadInput(dayFiveVents)
+            val simpleHeatMap = hydrothermalVentScanner.simpleHeatMap(2)
+            println("day five vents - no. of hot spots in straight lines ${simpleHeatMap.size}")
+            val heatMap = hydrothermalVentScanner.heatMap(2)
             println("day five vents - no. of hot spots ${heatMap.size}")
         }
     }

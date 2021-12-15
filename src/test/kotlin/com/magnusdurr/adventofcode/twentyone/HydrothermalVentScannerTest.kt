@@ -24,11 +24,18 @@ internal class HydrothermalVentScannerTest {
     fun `day five - calculate heat map`() {
         val ventScanner = HydrothermalVentScanner.loadInput(testData)
 
-        val heatMap = ventScanner.heatMap(2)
+        val heatMap = ventScanner.simpleHeatMap(2)
         assertThat(heatMap).hasSize(5)
         assertThat(heatMap).contains(
             Point(3, 4), Point(7, 4), Point(0, 9), Point(1, 9), Point(2, 9)
         )
+    }
+
+    @Test
+    fun `day five - calculate heat map with diagonals`() {
+        val ventScanner = HydrothermalVentScanner.loadInput(testData)
+        val heatMap = ventScanner.heatMap(2)
+        assertThat(heatMap).hasSize(12)
     }
 
     @Test
