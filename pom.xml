@@ -16,7 +16,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <kotlin.version>1.5.31</kotlin.version>
+        <kotlin.version>1.6.10</kotlin.version>
         <kotlin.compiler.jvmTarget>15</kotlin.compiler.jvmTarget>
     </properties>
 
@@ -42,6 +42,17 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.21.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -72,7 +83,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>15</jvmTarget>
+                    <jvmTarget>1.8</jvmTarget>
                     <args>
                         <arg>-Xemit-jvm-type-annotations</arg>
                         <arg>-Xopt-in=kotlin.RequiresOptIn</arg>

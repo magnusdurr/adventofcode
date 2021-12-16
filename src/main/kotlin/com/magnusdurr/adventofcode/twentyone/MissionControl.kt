@@ -48,6 +48,11 @@ class MissionControl {
             println("day six fish - no. of fish in school after 80 days ${fishSchool.size()}")
             fishSchool.simulateDaysLowMem(256)
             println("day six fish - no. of fish in school after 256 days ${fishSchool.lowMemSize()}")
+
+            val daySevenCrab = File("src/main/resources/day-seven-crabs.txt")
+                .readLines().first().split(",").map { it.toInt() }
+            val (bestPosition, fuelConsumption) = CrabSubmarine.slowAndSimple(daySevenCrab)
+            println("day seven crab submarine - optimal position is $bestPosition, spending $fuelConsumption fuel")
         }
     }
 
