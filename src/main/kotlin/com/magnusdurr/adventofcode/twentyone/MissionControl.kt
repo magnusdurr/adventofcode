@@ -51,8 +51,11 @@ class MissionControl {
 
             val daySevenCrab = File("src/main/resources/day-seven-crabs.txt")
                 .readLines().first().split(",").map { it.toInt() }
-            val (bestPosition, fuelConsumption) = CrabSubmarine.slowAndSimple(daySevenCrab)
-            println("day seven crab submarine - optimal position is $bestPosition, spending $fuelConsumption fuel")
+            val simpleResult = CrabSubmarine.slowAndSimpleWithSimpleFuelCalculation(daySevenCrab)
+            println("day seven crab submarine - optimal position is ${simpleResult.first}, spending ${simpleResult.second} fuel")
+
+            val betterResult = CrabSubmarine.slowAndSimpleWithAccurateFuelCalculation(daySevenCrab)
+            println("day seven crab submarine - optimal position is ${betterResult.first}, spending ${betterResult.second} fuel")
         }
     }
 

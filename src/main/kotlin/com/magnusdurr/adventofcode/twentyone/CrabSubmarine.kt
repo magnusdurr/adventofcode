@@ -5,17 +5,27 @@ import kotlin.math.abs
 class CrabSubmarine(val position: Int) {
 
     companion object {
-        fun slowAndSimple(initialPositions: List<Int>): Pair<Int, Int> {
+        fun slowAndSimpleWithSimpleFuelCalculation(initialPositions: List<Int>): Pair<Int, Int> {
             val crabSubmarines = initialPositions.map { CrabSubmarine(it) }
 
             return (initialPositions.minOrNull()!! until initialPositions.maxOrNull()!!)
                 .map { it to crabSubmarines.sumOf { sub -> sub.distanceTo(it) } }
-                .sortedBy { it.second }
-                .first()
+                .minByOrNull { it.second }!!
+        }
+
+        fun slowAndSimpleWithAccurateFuelCalculation(initialPositions: List<Int>): Pair<Int, Int> {
+            val crabSubmarines = initialPositions.map { CrabSubmarine(it) }
+
+            return (initialPositions.minOrNull()!! until initialPositions.maxOrNull()!!)
+                .map {
+                    it to crabSubmarines.sumOf { sub ->
+                        sub.distanceTo(it).let { distance -> sub.fuelConsumptionForDistance(distance) }
+                    }
+                }
+                .minByOrNull { it.second }!!
         }
     }
 
-    fun distanceTo(targetLocation: Int): Int {
-        return abs(position - targetLocation)
-    }
+    fun distanceTo(targetLocation: Int): Int = abs(position - targetLocation)
+    fun fuelConsumptionForDistance(distance: Int): Int = (0..distance).mapIndexed { index, _ -> index }.sum()
 }

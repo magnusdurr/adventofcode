@@ -9,8 +9,15 @@ internal class CrabSubmarineTest {
 
     @Test
     fun `day seven - verify simple but slow`() {
-        val result = CrabSubmarine.slowAndSimple(positions)
+        val result = CrabSubmarine.slowAndSimpleWithSimpleFuelCalculation(positions)
         assertThat(result.first).isEqualTo(2)
         assertThat(result.second).isEqualTo(37)
+    }
+
+    @Test
+    fun `day seven - verify simple but slow with good fuel calculation`() {
+        val result = CrabSubmarine.slowAndSimpleWithAccurateFuelCalculation(positions)
+        assertThat(result.first).isEqualTo(5)
+        assertThat(result.second).isEqualTo(168)
     }
 }
