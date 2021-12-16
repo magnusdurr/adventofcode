@@ -56,6 +56,15 @@ class MissionControl {
 
             val betterResult = CrabSubmarine.slowAndSimpleWithAccurateFuelCalculation(daySevenCrab)
             println("day seven crab submarine - optimal position is ${betterResult.first}, spending ${betterResult.second} fuel")
+
+            val dayEightDisplay = File("src/main/resources/day-eight-display.txt").readLines()
+            println(
+                "day eight displays - number of 1,4,7 or 8 is ${
+                    SevenSegmentDisplay.sumOfUniqueNumbers(
+                        dayEightDisplay
+                    )
+                }"
+            )
         }
     }
 
