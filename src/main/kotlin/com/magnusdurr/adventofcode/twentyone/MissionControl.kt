@@ -68,6 +68,12 @@ class MissionControl {
                     )
                 }"
             )
+
+            val dayNineScan = File("src/main/resources/day-nine-lava-tube.txt").readLines()
+            val lavaTubeScan = LavaTubeScan.parse(dayNineScan)
+            val lowPoints = lavaTubeScan.findLowPoints()
+            println("day nine lava tube - tube low point risk ${lowPoints.sumOf { it.riskLevel }}")
+            println("day nine lava tube - basin sizes ${lavaTubeScan.multipliedSizeOfThreeLargestBasins(lowPoints)}")
         }
     }
 
