@@ -20,4 +20,14 @@ internal class SevenSegmentDisplayTest {
     fun `day eight - count unique numbers in output`() {
         assertThat(SevenSegmentDisplay.sumOfUniqueNumbers(testData.lines())).isEqualTo(26)
     }
+
+    @Test
+    fun `day eight - decode digits`() {
+        val display = SevenSegmentDisplay(
+            listOf("acedgfb", "cdfbe", "gcdfa", "fbcad", "dab", "cefabd", "cdfgeb", "eafb", "cagedb", "ab"),
+            listOf("cdfeb", "fcadb", "cdfeb", "cdbaf")
+        )
+
+        assertThat(display.decodeAndCombineNumbers()).isEqualTo(5353)
+    }
 }

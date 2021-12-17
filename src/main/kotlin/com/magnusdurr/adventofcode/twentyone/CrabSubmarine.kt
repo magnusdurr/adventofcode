@@ -1,8 +1,9 @@
 package com.magnusdurr.adventofcode.twentyone
 
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
-class CrabSubmarine(val position: Int) {
+class CrabSubmarine(private val position: Int) {
 
     companion object {
         fun slowAndSimpleWithSimpleFuelCalculation(initialPositions: List<Int>): Pair<Int, Int> {
@@ -27,5 +28,5 @@ class CrabSubmarine(val position: Int) {
     }
 
     fun distanceTo(targetLocation: Int): Int = abs(position - targetLocation)
-    fun fuelConsumptionForDistance(distance: Int): Int = (0..distance).mapIndexed { index, _ -> index }.sum()
+    fun fuelConsumptionForDistance(distance: Int): Int = ((distance + 1) * (distance.toDouble() / 2)).roundToInt()
 }
