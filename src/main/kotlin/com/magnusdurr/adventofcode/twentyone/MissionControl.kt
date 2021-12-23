@@ -74,6 +74,14 @@ class MissionControl {
             val lowPoints = lavaTubeScan.findLowPoints()
             println("day nine lava tube - tube low point risk ${lowPoints.sumOf { it.riskLevel }}")
             println("day nine lava tube - basin sizes ${lavaTubeScan.multipliedSizeOfThreeLargestBasins(lowPoints)}")
+
+            val dayTenLines = File("src/main/resources/day-ten-lines.txt").readLines()
+            println(
+                "day ten lines - syntax error score ${
+                    NavigationProtocolParser.findBadLines(dayTenLines)
+                        .let { NavigationProtocolParser.countErrorScore(it) }
+                }"
+            )
         }
     }
 
