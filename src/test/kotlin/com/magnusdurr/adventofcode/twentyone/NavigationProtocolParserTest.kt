@@ -1,5 +1,10 @@
 package com.magnusdurr.adventofcode.twentyone
 
+import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.Companion.closingSequence
+import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.Companion.countClosingScore
+import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.Companion.countErrorScore
+import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.Companion.findBadLines
+import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.Companion.findClosingSequences
 import com.magnusdurr.adventofcode.twentyone.NavigationProtocolParser.ParserException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -7,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 internal class NavigationProtocolParserTest {
 
-    val testInput = listOf(
+    private val testInput = listOf(
         "[({(<(())[]>[[{[]{<()<>>",
         "[(()[<>])]({[<{<<[]>>(",
         "{([(<{}[<>[]}>{[]{[(<()>",
@@ -21,11 +26,6 @@ internal class NavigationProtocolParserTest {
     )
 
     @Test
-    fun `day ten - parse valid line`() {
-        assertThat(NavigationProtocolParser.parse("[({(<(())[]>[[{[]{<()<>>")).hasSize(3)
-    }
-
-    @Test
     fun `day ten - parse invalid line`() {
         assertThrows(ParserException::class.java) {
             NavigationProtocolParser.parse("{([(<{}[<>[]}>{[]{[(<()>")
@@ -36,7 +36,29 @@ internal class NavigationProtocolParserTest {
 
     @Test
     fun `day ten - find five invalid lines`() {
-        val errors = NavigationProtocolParser.findBadLines(testInput)
-        assertThat(NavigationProtocolParser.countErrorScore(errors)).isEqualTo(26397)
+        assertThat(countErrorScore(findBadLines(testInput))).isEqualTo(26397)
+    }
+
+    @Test
+    fun `day ten - closing sequence`() {
+        assertThat(closingSequence("[({(<(())[]>[[{[]{<()<>>")).isEqualTo("}}]])})]")
+        assertThat(closingSequence("[(()[<>])]({[<{<<[]>>(")).isEqualTo(")}>]})")
+        assertThat(closingSequence("(((({<>}<{<{<>}{[]{[]{}")).isEqualTo("}}>}>))))")
+        assertThat(closingSequence("{<[[]]>}<{[{[{[]{()[[[]")).isEqualTo("]]}}]}]}>")
+        assertThat(closingSequence("<{([{{}}[<[[[<>{}]]]>[]]")).isEqualTo("])}>")
+    }
+
+    @Test
+    fun `day ten - closing sequence scores`() {
+        assertThat(countClosingScore("}}]])})]")).isEqualTo(288957)
+        assertThat(countClosingScore(")}>]})")).isEqualTo(5566)
+        assertThat(countClosingScore("}}>}>))))")).isEqualTo(1480781)
+        assertThat(countClosingScore("]]}}]}]}>")).isEqualTo(995444)
+        assertThat(countClosingScore("])}>")).isEqualTo(294)
+    }
+
+    @Test
+    fun `day ten - task two`() {
+        assertThat(findClosingSequences(testInput).map { countClosingScore(it) }.middle()).isEqualTo(288957)
     }
 }

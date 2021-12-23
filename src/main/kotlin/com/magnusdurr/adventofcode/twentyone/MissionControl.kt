@@ -82,6 +82,13 @@ class MissionControl {
                         .let { NavigationProtocolParser.countErrorScore(it) }
                 }"
             )
+
+            println(
+                "day ten lines - closing chars score ${
+                    NavigationProtocolParser.findClosingSequences(dayTenLines)
+                        .map { NavigationProtocolParser.countClosingScore(it) }.middle()
+                }"
+            )
         }
     }
 
