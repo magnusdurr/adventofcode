@@ -21,16 +21,20 @@ class Trebuchet {
         return "$first$last".toInt()
     }
 
-    internal fun textToNumbers(line: String): String {
-        var result = line
-        var firstTextDigit = firstTextDigitPosition(result)
+    internal fun numbersFromLinesWithText(line: String): Int {
+        val first = firstTextDigitPosition(line).let {
+            if (it != null) {
+                line.replace(it.asText, it.asDigit)
+            } else line
+        }.first { it.isDigit() }
 
-        while (firstTextDigit != null) {
-            result = result.replace(firstTextDigit.asText, firstTextDigit.asDigit)
-            firstTextDigit = firstTextDigitPosition(result)
-        }
+        val last = lastTextDigitPosition(line).let {
+            if (it != null) {
+                line.replace(it.asText, it.asDigit)
+            } else line
+        }.last { it.isDigit() }
 
-        return result
+        return "$first$last".toInt()
     }
 
     private fun firstTextDigitPosition(result: String) =
@@ -38,20 +42,22 @@ class Trebuchet {
             .filter { it.position != -1 }
             .minByOrNull { it.position }
 
+    private fun lastTextDigitPosition(result: String) =
+        numbersAsText.map { TextDigitPosition(it.key, it.value, result.lastIndexOf(it.key)) }
+            .filter { it.position != -1 }
+            .maxByOrNull { it.position }
+
+    fun calibrationValueSum(lines: List<String>): Int = lines
+        .map(::numberFromLine)
+        .sum()
+
+    fun calibrationValueSumIncludingText(lines: List<String>): Int = lines
+        .map(::numbersFromLinesWithText)
+        .sum()
+
     internal data class TextDigitPosition(
         val asText: String,
         val asDigit: String,
         val position: Int
     )
-
-    fun calibrationValueSum(lines: List<String>): Int = lines
-        .map(::numberFromLine)
-        .also { println(it) }
-        .sum()
-
-    fun calibrationValueSumIncludingText(lines: List<String>): Int = lines
-        .map(::textToNumbers)
-        .map(::numberFromLine)
-        .also { println(it) }
-        .sum()
 }

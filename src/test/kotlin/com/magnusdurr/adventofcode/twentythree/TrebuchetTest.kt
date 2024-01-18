@@ -19,13 +19,17 @@ class TrebuchetTest {
     fun `verify calibration value extraction inc text`() {
         val trebuchet = Trebuchet()
 
-        assertThat(trebuchet.textToNumbers("two1nine").let { trebuchet.numberFromLine(it) }).isEqualTo(29)
-        assertThat(trebuchet.textToNumbers("eightwothree").let { trebuchet.numberFromLine(it) }).isEqualTo(83)
-        assertThat(trebuchet.textToNumbers("abcone2threexyz").let { trebuchet.numberFromLine(it) }).isEqualTo(13)
-        assertThat(trebuchet.textToNumbers("xtwone3four").let { trebuchet.numberFromLine(it) }).isEqualTo(24)
-        assertThat(trebuchet.textToNumbers("4nineeightseven2").let { trebuchet.numberFromLine(it) }).isEqualTo(42)
-        assertThat(trebuchet.textToNumbers("zoneight234").let { trebuchet.numberFromLine(it) }).isEqualTo(14)
-        assertThat(trebuchet.textToNumbers("7pqrstsixteen").let { trebuchet.numberFromLine(it) }).isEqualTo(76)
+        assertThat(trebuchet.numbersFromLinesWithText("two1nine")).isEqualTo(29)
+        assertThat(trebuchet.numbersFromLinesWithText("eightwothree")).isEqualTo(83)
+        assertThat(trebuchet.numbersFromLinesWithText("abcone2threexyz")).isEqualTo(13)
+        assertThat(trebuchet.numbersFromLinesWithText("xtwone3four")).isEqualTo(24)
+        assertThat(trebuchet.numbersFromLinesWithText("4nineeightseven2")).isEqualTo(42)
+        assertThat(trebuchet.numbersFromLinesWithText("zoneight234")).isEqualTo(14)
+        assertThat(trebuchet.numbersFromLinesWithText("7pqrstsixteen")).isEqualTo(76)
+
+        assertThat(trebuchet.numbersFromLinesWithText("eightwo")).isEqualTo(82)
+        assertThat(trebuchet.numbersFromLinesWithText("sixsix35")).isEqualTo(65)
+        assertThat(trebuchet.numbersFromLinesWithText("smdn65foureight7fiveeight")).isEqualTo(68)
     }
 
     @Test
@@ -37,13 +41,20 @@ class TrebuchetTest {
 
     @Test
     fun `verify puzzle input - task one`() {
-        puzzelInput.lines().filter { it.isNotBlank() }.let { Trebuchet().calibrationValueSum(it) }.also { println(it) }
+        puzzelInput.lines()
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+            .let { Trebuchet().calibrationValueSum(it) }
+            .also { println("Day one - task one: $it") }
     }
 
     @Test
     fun `verify puzzle input - task two`() {
-        puzzelInput.lines().filter { it.isNotBlank() }.let { Trebuchet().calibrationValueSumIncludingText(it) }
-            .also { println(it) }
+        puzzelInput.lines()
+            .map { it.trim() }
+            .filter { it.isNotBlank() }
+            .let { Trebuchet().calibrationValueSumIncludingText(it) }
+            .also { println("Day one - task two: $it") }
     }
 
     private val puzzelInput = """five8b
